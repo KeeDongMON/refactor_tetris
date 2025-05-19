@@ -1,13 +1,5 @@
 #include "color.h"
 
-char* get_color_string(color_t color) {
-    if (color >= BLACK && color <= LIGHT_WHITE) {
-        return color_strings[color]; // 유효한 색상 값이면 해당 문자열 반환
-    }
-    else {
-        return "unknown"; // 유효하지 않은 값이면 기본값 반환
-    }
-}
 
 //추가적으로 밝은 색상은 해당 값에 8을 더한 값으로 표현됩니다(예: 밝은 파랑은 9).
 static char* color_strings[16] = {
@@ -28,3 +20,12 @@ static char* color_strings[16] = {
     "light yellow", // 밝은 노랑
     "light white" // 밝은 흰색
 };
+
+char* get_color_string(color_t color) {
+    if (color >= BLACK && color <= LIGHT_WHITE) {
+        return color_strings[color]; // 유효한 색상 값이면 해당 문자열 반환
+    }
+    else {
+        return "unknown"; // 유효하지 않은 값이면 기본값 반환
+    }
+}

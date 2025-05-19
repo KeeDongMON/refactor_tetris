@@ -11,25 +11,6 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-//console
-void console_resize(const windows_console_t* console, uint32_t cols, uint32_t rows);
-
-    console->cursor_info.x = x;
-    console->cursor_info.y = y;
-    console->cursor_info.is_hide = value;
-
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // 콘솔 핸들 가져오기
-    CONSOLE_CURSOR_INFO cursorInfo;
-
-    if (GetConsoleCursorInfo(hConsole, &cursorInfo)) {
-        cursorInfo.bVisible = console->cursor_info.is_hide; // TRUE: 표시, FALSE: 숨김
-        SetConsoleCursorInfo(hConsole, &cursorInfo);
-    }
-    else {
-        printf("Error: Unable to set console cursor visibility.\n");
-    }
-}
-
 
 //void console_init(windows_console_t* console) {
 //    CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -98,24 +79,6 @@ void console_resize(const windows_console_t* console, uint32_t cols, uint32_t ro
 //    printf("[%d] Cursor (x,y,hide) = %d,%d,%d)\r\n", ++dummy_count, console->cursor_info.x, console->cursor_info.y, console->cursor_info.is_hide);
 //}
 
-
-typedef struct _point_t {
-    uint32_t x;
-    uint32_t y;
-} point_t;
-
-typedef struct _cell_t {
-    point_t point; // cell의 위치
-    color_t color; // cell의 색상
-    cell_attributes_t att; // cell의 속성
-} cell_t;
-
-void cell_init(cell_t* cell, int x, int y, cell_attributes_t att, color_t color) {
-    cell->point.x = x;
-    cell->point.y = y;
-    cell->att = att;
-    cell->color = color;
-}
 
 //void console_set_back_color(windows_console_t* console, uint8_t back_color) {
 //    console->back_color = back_color;
@@ -203,12 +166,6 @@ void cell_init(cell_t* cell, int x, int y, cell_attributes_t att, color_t color)
 //void setcolor(unsigned short text, unsigned short back) {
 //    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text | (back << 4));
 //}
-
-
-//color
-void setcolor(unsigned short text, unsigned short back) {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text | (back << 4));
-}
 
 
 

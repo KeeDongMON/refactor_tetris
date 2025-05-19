@@ -166,6 +166,7 @@ void console_clear(const windows_console_t* console) {
 
 void setcolor(unsigned short text, unsigned short back) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text | (back << 4));
+}
 
 //cursor
 void set_cursor_visible(windows_console_t* console, bool hide) {

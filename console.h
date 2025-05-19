@@ -22,31 +22,6 @@
 #define RESIZE_COLS (DEFAULT_COLS-30) //=90
 #define RESIZE_ROWS 30
 
-typedef struct _cursor_info_t {
-    uint32_t x;
-    uint32_t y;
-    bool is_hide;
-} cursor_info_t;
-
-
-typedef enum _color_t {
-    BLACK, //0
-    BLUE, // 1
-    GREEN,
-    CYAN,
-    RED,
-    PURPLE,
-    YELLOW,
-    WHITE,
-    GRAY,
-    LIGHT_BLUE,
-    LIGHT_GREEN,
-    LIGHT_CYAN,
-    LIGHT_RED,
-    LIGHT_PURPLE,
-    LIGHT_YELLOW,
-    LIGHT_WHITE,
-} color_t;
 
 
 typedef struct _windows_console_t {
