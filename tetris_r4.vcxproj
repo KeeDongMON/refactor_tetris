@@ -128,14 +128,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="blocks.c" />
+    <ClCompile Include="console.c" />
+    <ClCompile Include="draw.c" />
     <ClCompile Include="key_driver.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blocks.h" />
+    <ClInclude Include="color.h" />
+    <ClInclude Include="console.h" />
     <ClInclude Include="key_code.h" />
     <ClInclude Include="key_config.h" />
     <ClInclude Include="key_driver.h" />
+    <ClInclude Include="sound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
