@@ -1,10 +1,4 @@
-﻿// itsme
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <windows.h>
-//test
-#include "common.h"
+#include "common.h" //stdint, stdio, stdbool, Windows
 #include "blocks.h"
 #include "key_driver.h"
 #include "console.h"
@@ -15,14 +9,11 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-//geunu start edit
-
 //console
 void console_resize(const windows_console_t* console, uint32_t cols, uint32_t rows);
 
 //console
 void console_clear(windows_console_t* console);
-
 //console
 void console_set_cursor(windows_console_t* console, uint32_t x, uint32_t y, bool value) {
     console->cursor_info.x = x;
@@ -231,8 +222,6 @@ void block_draw(const block_t* blk, uint32_t x, uint32_t y) {
     }
 }
 */
-
-
 
 bool running = true;
 
