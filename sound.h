@@ -15,5 +15,3 @@ void sound_stop(void);
 
 
 #endif
-=======
-#pragma once
