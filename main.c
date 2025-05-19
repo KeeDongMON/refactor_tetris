@@ -20,41 +20,9 @@
 //console
 void console_resize(const windows_console_t* console, uint32_t cols, uint32_t rows);
 
-//cursor
-// 커서의 숨김,표시 정보를 가져오는 함수
-bool get_cursor_visibility(void) {
-    bool result = true; // tre가 default
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // 콘솔 핸들 가져오기
-    CONSOLE_CURSOR_INFO cursorInfo;
-
-    // 현재 커서 정보 가져오기
-    if (GetConsoleCursorInfo(hConsole, &cursorInfo)) {
-        //cursorInfo.bVisible = visible; // TRUE: 표시, FALSE: 숨김
-        //SetConsoleCursorInfo(hConsole, &cursorInfo);
-        result = cursorInfo.bVisible;
-    }
-    else {
-        printf("Error: Unable to set console cursor visibility.\n");
-    }
-    return result;
-}
 //console
 void console_clear(windows_console_t* console);
-//cursor
-void set_cursor_visible(windows_console_t* console, bool hide) {
-    console->cursor_info.is_hide = hide;
 
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // 콘솔 핸들 가져오기
-    CONSOLE_CURSOR_INFO cursorInfo;
-
-    if (GetConsoleCursorInfo(hConsole, &cursorInfo)) {
-        cursorInfo.bVisible = console->cursor_info.is_hide; // TRUE: 표시, FALSE: 숨김
-        SetConsoleCursorInfo(hConsole, &cursorInfo);
-    }
-    else {
-        printf("Error: Unable to set console cursor visibility.\n");
-    }
-}
 //console
 void console_set_cursor(windows_console_t* console, uint32_t x, uint32_t y, bool value) {
     console->cursor_info.x = x;
@@ -139,9 +107,6 @@ void console_display_info(const windows_console_t* console) {
     printf("[%d] Cursor (x,y,hide) = %d,%d,%d)\r\n", ++dummy_count, console->cursor_info.x, console->cursor_info.y, console->cursor_info.is_hide);
 }
 
-
-
-
 //console
 void console_set_fill_color(int background_color) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // 콘솔 핸들 가져오기
@@ -170,24 +135,6 @@ void console_set_fill_color(int background_color) {
 
     // 커서를 다시 좌상단으로 이동
     SetConsoleCursorPosition(hConsole, coord);
-}
-//cursor
-void SetCurrentCursorPos(int x, int y) {
-    COORD pos; // = (x, y);
-    pos.X = x;
-    pos.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-}
-//cursor
-point_t GetCurrentCursorPos(void) {
-    point_t curr_point; // curPoint 타입이 운영체제 종속적이라서  point_t 타입을 만들어 이식성을 좋게 하려고 했다네요.
-    CONSOLE_SCREEN_BUFFER_INFO curr_info;
-
-    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curr_info);
-    curr_point.x = curr_info.dwCursorPosition.X;
-    curr_point.y = curr_info.dwCursorPosition.Y;
-
-    return curr_point;
 }
 
 
@@ -228,11 +175,10 @@ void console_clear(const windows_console_t* console) {
     FillConsoleOutputAttribute(hConsole, csbi.wAttributes, console_size, top_left, &chars_written); // 콘솔 화면의 모든 속성을 기본값으로 채우기
     SetConsoleCursorPosition(hConsole, top_left); // 커서를 화면의 좌상단으로 이동
 }
-//color
+//console
 void setcolor(unsigned short text, unsigned short back) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text | (back << 4));
 }
-
 
 //block
 void block_draw(block_t* block) {
