@@ -79,9 +79,10 @@ typedef struct _windows_console_t {
 
     cursor_info_t cursor_info;
 } windows_console_t;
-
+//console
 void console_resize(const windows_console_t* console, uint32_t cols, uint32_t rows);
 
+//cursor
 // 커서의 숨김,표시 정보를 가져오는 함수
 bool get_cursor_visibility(void) {
     bool result = true; // tre가 default
@@ -99,9 +100,9 @@ bool get_cursor_visibility(void) {
     }
     return result;
 }
-
+//console
 void console_clear(windows_console_t* console);
-
+//cursor
 void set_cursor_visible(windows_console_t* console, bool hide) {
     console->cursor_info.is_hide = hide;
 
@@ -116,7 +117,7 @@ void set_cursor_visible(windows_console_t* console, bool hide) {
         printf("Error: Unable to set console cursor visibility.\n");
     }
 }
-
+//console
 void console_set_cursor(windows_console_t* console, uint32_t x, uint32_t y, bool value) {
     console->cursor_info.x = x;
     console->cursor_info.y = y;
@@ -134,7 +135,7 @@ void console_set_cursor(windows_console_t* console, uint32_t x, uint32_t y, bool
     }
 }
 
-
+//console
 void console_init(windows_console_t* console) {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     console_clear(console);
@@ -172,7 +173,7 @@ void console_init(windows_console_t* console) {
     }
     //printf("cosole (cols,rows)= %d,%d", console->cols, console->rows);
 }
-
+//console
 void console_set_size(windows_console_t* console, uint32_t cols, uint32_t rows) {
     console->cols = cols;
     console->rows = rows;
@@ -185,11 +186,11 @@ void console_set_size(windows_console_t* console, uint32_t cols, uint32_t rows) 
     //printf("%s\r\n", dummy_str);
 
 }
-
+//console
 void console_resize(const windows_console_t* console, uint32_t cols, uint32_t rows) {
     console_set_size(console, cols, rows);
 }
-
+//console
 void console_display_info(const windows_console_t* console) {
     static uint8_t dummy_count = 0;
     printf("This Console information.\r\n");
@@ -199,46 +200,46 @@ void console_display_info(const windows_console_t* console) {
     printf("[%d] Colors (fore,back) = (%s,%s)\r\n", ++dummy_count, get_color_string(console->fore_color), get_color_string(console->back_color));
     printf("[%d] Cursor (x,y,hide) = %d,%d,%d)\r\n", ++dummy_count, console->cursor_info.x, console->cursor_info.y, console->cursor_info.is_hide);
 }
-
+//point
 typedef struct _point_t {
     uint32_t x;
     uint32_t y;
 } point_t;
-
+//cell
 typedef struct _cell_t {
     point_t point; // cell의 위치
     color_t color; // cell의 색상
     cell_attributes_t att; // cell의 속성
 } cell_t;
-
+//cell
 void cell_init(cell_t* cell, int x, int y, cell_attributes_t att, color_t color) {
     cell->point.x = x;
     cell->point.y = y;
     cell->att = att;
     cell->color = color;
 }
-
+//console
 void console_set_fore_color(windows_console_t* console, uint8_t fore_color) {
     console->fore_color = fore_color;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), fore_color);
 }
-
+//console
 void console_set_back_color(windows_console_t* console, uint8_t back_color) {
     console->back_color = back_color;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), back_color);
 }
-
+//console
 void console_set_color(windows_console_t* console, uint8_t fore_color, uint8_t back_color) {
     console->fore_color = fore_color;
     console->back_color = back_color;
     //void console_set_color(unsigned short text, unsigned short back) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), console->fore_color | (console->back_color << 4));
 }
-
+//console
 void console_set_default_color(windows_console_t* console) {
     console_set_color(console, WHITE, BLACK);
 }
-
+//console
 void console_set_fill_color(int background_color) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // 콘솔 핸들 가져오기
     CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -267,14 +268,14 @@ void console_set_fill_color(int background_color) {
     // 커서를 다시 좌상단으로 이동
     SetConsoleCursorPosition(hConsole, coord);
 }
-
+//cursor
 void SetCurrentCursorPos(int x, int y) {
     COORD pos; // = (x, y);
     pos.X = x;
     pos.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
-
+//cursor
 point_t GetCurrentCursorPos(void) {
     point_t curr_point; // curPoint 타입이 운영체제 종속적이라서  point_t 타입을 만들어 이식성을 좋게 하려고 했다네요.
     CONSOLE_SCREEN_BUFFER_INFO curr_info;
@@ -294,7 +295,7 @@ point_t GetCurrentCursorPos(void) {
 //    FillConsoleOutputCharacter(hConsole, ' ', 1, pos, &written); // 이전 위치를 공백으로 덮음
 //}
 
-
+//console
 void console_clear_region(uint32_t x, uint32_t y, uint32_t width, uint32_t height) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD coord;
@@ -307,7 +308,7 @@ void console_clear_region(uint32_t x, uint32_t y, uint32_t width, uint32_t heigh
         FillConsoleOutputCharacter(hConsole, ' ', width, coord, &charsWritten);
     }
 }
-
+//console
 void console_clear(const windows_console_t* console) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // 콘솔 핸들 가져오기
     CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -324,11 +325,11 @@ void console_clear(const windows_console_t* console) {
     FillConsoleOutputAttribute(hConsole, csbi.wAttributes, console_size, top_left, &chars_written); // 콘솔 화면의 모든 속성을 기본값으로 채우기
     SetConsoleCursorPosition(hConsole, top_left); // 커서를 화면의 좌상단으로 이동
 }
-
+//color
 void setcolor(unsigned short text, unsigned short back) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text | (back << 4));
 }
-
+//cell
 //void draw_one_cell(cell_t* cell, uint32_t x, uint32_t y) {
 void cell_draw(cell_t* cell, uint32_t x, uint32_t y) {
     cell->point.x = x;
@@ -344,7 +345,7 @@ void cell_draw(cell_t* cell, uint32_t x, uint32_t y) {
     printf("■");
 }
 
-
+//block
 void block_draw(block_t* block) {
     //blk->x = x;
     //blk->y = y;
@@ -396,7 +397,7 @@ void block_draw(const block_t* blk, uint32_t x, uint32_t y) {
 }
 */
 
-
+//cell
 void cell_draw_test(windows_console_t* console) {
     cell_t my_cell;
     cell_init(&my_cell, 0, 0, N, YELLOW); // 좌표계 점검용 테스트 코드
@@ -414,11 +415,11 @@ bool running = true;
 #include <mmsystem.h>
 
 #pragma comment(lib, "winmm.lib") // winmm 라이브러리 링크
-
+//sound
 void sound_init(const char file_name) {
 
 }
-
+//sound
 void sound_play(const char* file_path) {
     //const char* filename = "sample2.wav";
     if (PlaySoundA(file_path, NULL, SND_ASYNC | SND_LOOP | SND_FILENAME)) {
@@ -428,6 +429,7 @@ void sound_play(const char* file_path) {
         printf("Error: Unable to play sound. Make sure the file exists and is a valid .wav file.\n");
     }
 }
+//sound
 void sound_stop(void) {
     PlaySoundA(NULL, NULL, 0);
 }
