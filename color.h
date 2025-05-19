@@ -1,5 +1,5 @@
-#ifndef COLOR_H
-#define COLOR_H
+#ifndef __COLOR_H__
+#define __COLOR_H__
 
 typedef enum _color_t {
     BLACK, //0
