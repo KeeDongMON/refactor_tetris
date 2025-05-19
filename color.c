@@ -1,29 +1,30 @@
 #include "color.h"
 
-char* color_strings[16] = {
-    "black", // °ËÁ¤
-    "blue", // ÆÄ¶û
-    "green", // ÃÊ·Ï
-    "cyan", // Ã»·Ï
-    "red", // »¡°­
-    "purple", // ÀÚÁÖ
-    "yellow", // ³ë¶û
-    "white", // Èò»ö
-    "gray", // È¸»ö
-    "light blue", // ¹àÀº ÆÄ¶û
-    "light green", // ¹àÀº È¸»ö
-    "light cyan", // ¹àÀº Ã»·Ï
-    "light red", // ¹àÀº »¡°­
-    "light purple", // ¹àÀº ÀÚÁÖ
-    "light yellow", // ¹àÀº ³ë¶û
-    "light white" // ¹àÀº Èò»ö
-};
-
 char* get_color_string(color_t color) {
     if (color >= BLACK && color <= LIGHT_WHITE) {
-        return color_strings[color]; // À¯È¿ÇÑ »ö»ó °ªÀÌ¸é ÇØ´ç ¹®ÀÚ¿­ ¹ÝÈ¯
+        return color_strings[color]; // ìœ íš¨í•œ ìƒ‰ìƒ ê°’ì´ë©´ í•´ë‹¹ ë¬¸ìžì—´ ë°˜í™˜
     }
     else {
-        return "unknown"; // À¯È¿ÇÏÁö ¾ÊÀº °ªÀÌ¸é ±âº»°ª ¹ÝÈ¯
+        return "unknown"; // ìœ íš¨í•˜ì§€ ì•Šì€ ê°’ì´ë©´ ê¸°ë³¸ê°’ ë°˜í™˜
     }
 }
+
+//ì¶”ê°€ì ìœ¼ë¡œ ë°ì€ ìƒ‰ìƒì€ í•´ë‹¹ ê°’ì— 8ì„ ë”í•œ ê°’ìœ¼ë¡œ í‘œí˜„ë©ë‹ˆë‹¤(ì˜ˆ: ë°ì€ íŒŒëž‘ì€ 9).
+static char* color_strings[16] = {
+    "black", // ê²€ì •
+    "blue", // íŒŒëž‘
+    "green", // ì´ˆë¡
+    "cyan", // ì²­ë¡
+    "red", // ë¹¨ê°•
+    "purple", // ìžì£¼
+    "yellow", // ë…¸ëž‘
+    "white", // í°ìƒ‰
+    "gray", // íšŒìƒ‰
+    "light blue", // ë°ì€ íŒŒëž‘
+    "light green", // ë°ì€ íšŒìƒ‰
+    "light cyan", // ë°ì€ ì²­ë¡
+    "light red", // ë°ì€ ë¹¨ê°•
+    "light purple", // ë°ì€ ìžì£¼
+    "light yellow", // ë°ì€ ë…¸ëž‘
+    "light white" // ë°ì€ í°ìƒ‰
+};

@@ -5,6 +5,7 @@
 #include "color.h"
 #include "point.h"
 #include "cell.h"
+#include "sound.h"
 
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -166,86 +167,14 @@ void console_clear(const windows_console_t* console) {
     FillConsoleOutputAttribute(hConsole, csbi.wAttributes, console_size, top_left, &chars_written); // 콘솔 화면의 모든 속성을 기본값으로 채우기
     SetConsoleCursorPosition(hConsole, top_left); // 커서를 화면의 좌상단으로 이동
 }
-//console
+
 void setcolor(unsigned short text, unsigned short back) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text | (back << 4));
 }
 
-//block
-void block_draw(block_t* block) {
-    //blk->x = x;
-    //blk->y = y;
-
-    // 초기 좌표 설정
-    uint32_t initial_x = block->x * 2; // X 좌표는 두 배로 확대
-    uint32_t initial_y = block->y;
-
-    for (int i = 0; i < BLOCK_HEIGHT; i++) {
-        for (int j = 0; j < BLOCK_WIDTH; j++) {
-            // 블록 데이터가 있는 경우만 출력
-            if (block->att[block->rotation_index][i][j] == 1) {
-                setcolor(block->color, BLACK); // 블록 색상 설정
-                SetCurrentCursorPos(initial_x + j * 2, initial_y + i); // 커서 위치 설정
-                printf("■");
-                setcolor(WHITE, BLACK);
-            }
-            else {
-                SetCurrentCursorPos(initial_x + j * 2, initial_y + i); // 빈 셀 위치 설정
-                printf("□");
-                //printf("  ");
-            }
-        }
-    }
-
-    // 기본 색상으로 복원
-    setcolor(WHITE, BLACK);
-}
-
-/*old 지우지 말것
-void block_draw(const block_t* blk, uint32_t x, uint32_t y) {
-    static int tmp_row = 0;
-    SetCurrentCursorPos(x*2, y); // 초기 좌표를 잡고
-    for (int i = 0; i < BLOCK_HEIGHT; i++) {
-        for (int j = 0; j < BLOCK_WIDTH; j++) {
-            if (blk->data[blk->rotation_index][i][j] == 1) {
-                setcolor(blk->color, BLACK);
-                printf("■");
-                setcolor(WHITE, BLACK);
-            }
-            else {
-                printf("□");
-            }
-
-        }
-        //printf("\r\n");
-        SetCurrentCursorPos(x * 2, y + ++tmp_row);
-    }
-}
-*/
 
 bool running = true;
 
-#include <mmsystem.h>
-
-#pragma comment(lib, "winmm.lib") // winmm 라이브러리 링크
-//sound
-void sound_init(const char file_name) {
-
-}
-//sound
-void sound_play(const char* file_path) {
-    //const char* filename = "sample2.wav";
-    if (PlaySoundA(file_path, NULL, SND_ASYNC | SND_LOOP | SND_FILENAME)) {
-        printf("Playing sound: %s\n", file_path);
-    }
-    else {
-        printf("Error: Unable to play sound. Make sure the file exists and is a valid .wav file.\n");
-    }
-}
-//sound
-void sound_stop(void) {
-    PlaySoundA(NULL, NULL, 0);
-}
 // ----------------------------------
 // 테트리스의 표준적인 게임 필드 크기는 가로 10블록, 세로 20블록입니다.
 #define BOARD_WIDTH 10 + 2 // 2가 늘어난것은 왼쪽 오른쪽 Wall Cell이다.
