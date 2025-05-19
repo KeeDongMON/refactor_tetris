@@ -6,6 +6,7 @@
 #include "blocks.h"
 #include "key_driver.h"
 #include "color.h"
+#include "sound.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -364,27 +365,6 @@ void cell_draw_test(windows_console_t* console) {
 
 bool running = true;
 
-#include <mmsystem.h>
-
-#pragma comment(lib, "winmm.lib") // winmm 라이브러리 링크
-//sound
-void sound_init(const char file_name) {
-
-}
-//sound
-void sound_play(const char* file_path) {
-    //const char* filename = "sample2.wav";
-    if (PlaySoundA(file_path, NULL, SND_ASYNC | SND_LOOP | SND_FILENAME)) {
-        printf("Playing sound: %s\n", file_path);
-    }
-    else {
-        printf("Error: Unable to play sound. Make sure the file exists and is a valid .wav file.\n");
-    }
-}
-//sound
-void sound_stop(void) {
-    PlaySoundA(NULL, NULL, 0);
-}
 // ----------------------------------
 // 테트리스의 표준적인 게임 필드 크기는 가로 10블록, 세로 20블록입니다.
 #define BOARD_WIDTH 10 + 2 // 2가 늘어난것은 왼쪽 오른쪽 Wall Cell이다.
