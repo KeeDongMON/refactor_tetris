@@ -32,24 +32,24 @@ void board_init(int data[BOARD_HEIGHT][BOARD_WIDTH]) {
         for (int j = 0; j < BOARD_WIDTH; j++) {
             //cell_init(&gboard[i][j], 0, 0, YELLOW);
 
-            // old ÀÌ·¸°Ô ÇÏ¸é ÁÁÁö ¾Ê´Ù´Â ¿¹¸¦ º¸¿©ÁÖ±â À§ÇÑ ³ª»Û ÄÚµå
+            // old ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
             //board[i][j].point.x = j;
             //board[i][j].point.y = i;
-            //board[i][j].att = E; // ¸ðµÎ E·Î ¸¸µé¸é º®À» ±×¸±¶§ ÀÛ¼ºÇØ¾ß ÇÒ ÄÚµå°¡ ´Ã¾î³­´Ù.
+            //board[i][j].att = E; // ï¿½ï¿½ï¿½ Eï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½Úµå°¡ ï¿½Ã¾î³­ï¿½ï¿½.
             gboard[i][j].point.x = BOARD_START_X + j;
             gboard[i][j].point.y = BOARD_START_Y + i;
-            gboard[i][j].att = data[i][j]; // º°µµÀÇ º¸µå µ¥ÀÌÅÍ¸¦ ¸¸µçÈÄ »ðÀÔÇÏ´Â°Ô ÈÎ¾À
-            // ÄÚµùÀÌ °£Æí
-            // º¸±âµµ ±ò²û, °¡µ¶¼º ¿ì¼ö
-            // º¸µå¸¦ ¼öÁ¤ ÇÏ±âµµ ¸Å¿ì ½±´Ù.
+            gboard[i][j].att = data[i][j]; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Â°ï¿½ ï¿½Î¾ï¿½
+            // ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            // ï¿½ï¿½ï¿½âµµ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+            // ï¿½ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±âµµ ï¿½Å¿ï¿½ ï¿½ï¿½ï¿½ï¿½.
             gboard[i][j].color = YELLOW;
         }
     }
 };
 
-// º¸µå Á¤º¸¸¦ Ãâ·ÂÇÑ´Ù.
-// ±×·±µ¥ ±×¸® À¯¿ëÇÏÁö ¾ÊÀºµ¥
-// ÅØ½ºÆ®·Î ³ª¿Í¼­ º¸±â ºÒÆíÇÏ°í, (10,10,N)
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// ï¿½×·ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, (10,10,N)
 void board_display_info(cell_t board[BOARD_HEIGHT][BOARD_WIDTH]) {
     for (int i = 0; i < BOARD_HEIGHT; i++) {
         for (int j = 0; j < BOARD_WIDTH; j++) {
@@ -60,8 +60,8 @@ void board_display_info(cell_t board[BOARD_HEIGHT][BOARD_WIDTH]) {
     }
 }
 
-// ºí·°À» ¿òÁ÷ÀÌ´Â ¾ÆÁÖ ±âº»ÀûÀÎ ÇÔ¼ö
-// Ãæµ¹ Ã¼Å©¸¦ ÇÏÁö ¾Ê´Â´Ù. Ãæµ¹Ã¼Å©¸¦ ÇØº¸ÀÚ.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+// ï¿½æµ¹ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½. ï¿½æµ¹Ã¼Å©ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½.
 // moveBlockOnBaord, move_block_on_board
 //board_move_block(&console, gboard, &my_block, DIR_UP);
 void board_move_block(windows_console_t* console, cell_t board[BOARD_HEIGHT][BOARD_WIDTH], block_t* block, uint8_t dir) {
@@ -99,7 +99,7 @@ void board_roate_block(block_t* block) {
 }
 
 
-// ÇöÀç »óÅÂÀÇ º¸µå¸¦ ±×¸°´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½å¸¦ ï¿½×¸ï¿½ï¿½ï¿½.
 void board_draw(windows_console_t* console, cell_t board[BOARD_HEIGHT][BOARD_WIDTH]) {
     for (int i = 0; i < BOARD_HEIGHT; i++) {
         for (int j = 0; j < BOARD_WIDTH; j++) {
@@ -135,7 +135,7 @@ void board_insert_cell(cell_t board[BOARD_HEIGHT][BOARD_WIDTH], cell_t* cell, in
     board[cell->point.y][cell->point.x].att = cell->att;
 }
 
-// º¸µå ³»ÀÇ º®À» Á¦¿ÜÇÑ ¸ðµç ¼Ó¼º µ¥ÀÌÅÍµéÀ» Áö¿î´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 // clear_board_data(board);
 void board_clear_data(cell_t board[BOARD_HEIGHT][BOARD_WIDTH]) {
     for (int i = 0; i < BOARD_HEIGHT; i++) {
@@ -147,7 +147,7 @@ void board_clear_data(cell_t board[BOARD_HEIGHT][BOARD_WIDTH]) {
     }
 }
 
-// block ¹è¿­À» ÇöÀç À§Ä¡(block_x, block_y)¸¦ ±âÁØÀ¸·Î board¿¡ º¹»çÇÕ´Ï´Ù.
+// block ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡(block_x, block_y)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ boardï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 void board_insert_block(cell_t board[BOARD_HEIGHT][BOARD_WIDTH], block_t* block, int block_x, int block_y) {
     block->x = block_x;
     block->y = block_y;

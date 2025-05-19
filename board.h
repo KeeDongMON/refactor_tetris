@@ -11,17 +11,17 @@
 #include "console.h"
 #include "color.h"
 
-// Å×Æ®¸®½ºÀÇ Ç¥ÁØÀûÀÎ °ÔÀÓ ÇÊµå Å©±â´Â °¡·Î 10ºí·Ï, ¼¼·Î 20ºí·ÏÀÔ´Ï´Ù.
-#define BOARD_WIDTH 10 + 2 // 2°¡ ´Ã¾î³­°ÍÀº ¿ÞÂÊ ¿À¸¥ÂÊ Wall CellÀÌ´Ù.
-#define BOARD_HEIGHT 20 + 1 // 1ÀÌ ´Ã¾î³­°ÍÀº À§¿Í ¸¶Âù°¡Áö·Î Bottom Cell
+// ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ Å©ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 10ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ 20ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
+#define BOARD_WIDTH 10 + 2 // 2ï¿½ï¿½ ï¿½Ã¾î³­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Wall Cellï¿½Ì´ï¿½.
+#define BOARD_HEIGHT 20 + 1 // 1ï¿½ï¿½ ï¿½Ã¾î³­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Bottom Cell
 
 #define BOARD_START_X (4)
 #define BOARD_START_Y (4)
-// ¡á          ¡á // (0,0),(1,0),(2,0),(n,0), ...
-// ¡á          ¡á // (0,1),
-// ¡á          ¡á // (0,2),
+// ï¿½ï¿½          ï¿½ï¿½ // (0,0),(1,0),(2,0),(n,0), ...
+// ï¿½ï¿½          ï¿½ï¿½ // (0,1),
+// ï¿½ï¿½          ï¿½ï¿½ // (0,2),
 // .............. 
-// ¡á¡á¡á¡á¡á¡á¡á // (0,n),
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ // (0,n),
 
 void board_init(int data[BOARD_HEIGHT][BOARD_WIDTH]);
 void board_display_info(cell_t board[BOARD_HEIGHT][BOARD_WIDTH]);
@@ -39,7 +39,7 @@ void board_move_block(windows_console_t* console, cell_t board[BOARD_HEIGHT][BOA
 void board_roate_block(block_t* block);
 void board_insert_cell(cell_t board[BOARD_HEIGHT][BOARD_WIDTH], cell_t* cell, int cell_x, int cell_y);
 
-extern cell_t gboard[BOARD_HEIGHT][BOARD_WIDTH]; // ´Ù¸¥ c ÆÄÀÏ¿¡¼­µµ Àü¿ªº¯¼ö »ç¿ëÇÏ±â À§ÇØ extern
-extern cell_attributes_t board_data_attributes[BOARD_HEIGHT][BOARD_WIDTH]; // ´Ù¸¥ c ÆÄÀÏ¿¡¼­µµ Àü¿ªº¯¼ö »ç¿ëÇÏ±â À§ÇØ extern
+extern cell_t gboard[BOARD_HEIGHT][BOARD_WIDTH]; // ï¿½Ù¸ï¿½ c ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ extern
+extern cell_attributes_t board_data_attributes[BOARD_HEIGHT][BOARD_WIDTH]; // ï¿½Ù¸ï¿½ c ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ extern
 
 #endif
