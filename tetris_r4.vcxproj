@@ -129,12 +129,14 @@
   <ItemGroup>
     <ClCompile Include="blocks.c" />
 
+
     <ClCompile Include="board.c" />
     <ClCompile Include="cell.c" />
     <ClCompile Include="color.c" />
     <ClCompile Include="common.c" />
     <ClCompile Include="console.c" />
     <ClCompile Include="cursor.c" />
+
     <ClCompile Include="key_driver.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="point.c" />
