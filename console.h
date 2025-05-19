@@ -1,14 +1,20 @@
 #ifndef __CONSOLE_H__
 #define __CONSOLE_H__
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <windows.h>
-#include "blocks.h"
-#include "key_driver.h"
 
-#define _CRT_SECURE_NO_WARNINGS
+#include "key_driver.h"
+#include "blocks.h"
+#include "common.h"
+#include "point.h"
+#include "cursor.h"
+#include "color.h"
+
 
 #define DEFAULT_COLS 120
 #define DEFAULT_ROWS 30
@@ -69,4 +75,6 @@ void console_clear_region(uint32_t x, uint32_t y, uint32_t width, uint32_t heigh
 void console_clear(const windows_console_t* console);
 void setcolor(unsigned short text, unsigned short back);
 
+
 #endif
+

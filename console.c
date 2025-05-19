@@ -1,17 +1,17 @@
 #include "console.h"
 
 void console_clear(windows_console_t* console);
-//??
+
 void console_set_cursor(windows_console_t* console, uint32_t x, uint32_t y, bool value) {
     console->cursor_info.x = x;
     console->cursor_info.y = y;
     console->cursor_info.is_hide = value;
 
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // ÄÜ¼Ö ÇÚµé °¡Á®¿À±â
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // ì½˜ì†” í•¸ë“¤ ê°€ì ¸ì˜¤ê¸°
     CONSOLE_CURSOR_INFO cursorInfo;
 
     if (GetConsoleCursorInfo(hConsole, &cursorInfo)) {
-        cursorInfo.bVisible = console->cursor_info.is_hide; // TRUE: Ç¥½Ã, FALSE: ¼û±è
+        cursorInfo.bVisible = console->cursor_info.is_hide; // TRUE: í‘œì‹œ, FALSE: ìˆ¨ê¹€
         SetConsoleCursorInfo(hConsole, &cursorInfo);
     }
     else {
@@ -23,23 +23,23 @@ void console_init(windows_console_t* console) {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     console_clear(console);
 
-    // STD_OUTPUT_HANDLEÀ» ÅëÇØ ÄÜ¼Ö ÇÚµé °¡Á®¿À±â
+    // STD_OUTPUT_HANDLEì„ í†µí•´ ì½˜ì†” í•¸ë“¤ ê°€ì ¸ì˜¤ê¸°
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    // ÄÜ¼Ö È­¸é ¹öÆÛ Á¤º¸ °¡Á®¿À±â
+    // ì½˜ì†” í™”ë©´ ë²„í¼ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
     if (GetConsoleScreenBufferInfo(hConsole, &csbi)) {
-        // ÇöÀç ÄÜ¼Ö Ã¢ÀÇ Å©±â Á¤º¸ ¾ò¾î¿À±â
+        // í˜„ì¬ ì½˜ì†” ì°½ì˜ í¬ê¸° ì •ë³´ ì–»ì–´ì˜¤ê¸°
         console->cols = csbi.srWindow.Right - csbi.srWindow.Left + 1;
         console->rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 
-        // ÇöÀç ÄÜ¼Ö Ã¢ÀÇ fore, back »ö»ó Á¤º¸ ¾Ë¾Æ¿À±â
+        // í˜„ì¬ ì½˜ì†” ì°½ì˜ fore, back ìƒ‰ìƒ ì •ë³´ ì•Œì•„ì˜¤ê¸°
         WORD attributes = csbi.wAttributes;
         console->fore_color = attributes & 0x0F;
         console->back_color = (attributes >> 4) & 0x0F;
 
-        // Ä¿¼­ Á¤º¸ ¾Ë¾Æ³»±â
-        console->cursor_info.x = csbi.dwCursorPosition.X; // Ä¿¼­ÀÇ X ÁÂÇ¥
-        console->cursor_info.y = csbi.dwCursorPosition.Y; // Ä¿¼­ÀÇ Y ÁÂÇ¥
+        // ì»¤ì„œ ì •ë³´ ì•Œì•„ë‚´ê¸°
+        console->cursor_info.x = csbi.dwCursorPosition.X; // ì»¤ì„œì˜ X ì¢Œí‘œ
+        console->cursor_info.y = csbi.dwCursorPosition.Y; // ì»¤ì„œì˜ Y ì¢Œí‘œ
 
         console->cursor_info.is_hide = get_cursor_visibility();
         //set_cursor_visibility(console->cursor_info.is_hide);
@@ -64,7 +64,7 @@ void console_set_size(windows_console_t* console, uint32_t cols, uint32_t rows) 
     sprintf(dummy_str, "mode con: cols=%d lines=%d", console->cols, console->rows);
 
     system(dummy_str);
-    //system("mode con: cols=100 lines=30");//°¡·ÎÅ©±â 100, ¼¼·ÎÅ©±â50
+    //system("mode con: cols=100 lines=30");//ê°€ë¡œí¬ê¸° 100, ì„¸ë¡œí¬ê¸°50
     //printf("%s\r\n", dummy_str);
 
 }
@@ -83,7 +83,7 @@ void console_display_info(const windows_console_t* console) {
     printf("[%d] Cursor (x,y,hide) = %d,%d,%d)\r\n", ++dummy_count, console->cursor_info.x, console->cursor_info.y, console->cursor_info.is_hide);
 }
 
-
+//console
 void console_set_fore_color(windows_console_t* console, uint8_t fore_color) {
     console->fore_color = fore_color;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), fore_color);
@@ -106,31 +106,31 @@ void console_set_default_color(windows_console_t* console) {
 }
 
 void console_set_fill_color(int background_color) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // ÄÜ¼Ö ÇÚµé °¡Á®¿À±â
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // ì½˜ì†” í•¸ë“¤ ê°€ì ¸ì˜¤ê¸°
     CONSOLE_SCREEN_BUFFER_INFO csbi;
-    COORD coord = { 0, 0 }; // ÄÜ¼ÖÀÇ ½ÃÀÛ À§Ä¡ (ÁÂ»ó´Ü)
+    COORD coord = { 0, 0 }; // ì½˜ì†”ì˜ ì‹œì‘ ìœ„ì¹˜ (ì¢Œìƒë‹¨)
     DWORD count;
 
-    // ÇöÀç ÄÜ¼Ö Á¤º¸ °¡Á®¿À±â
+    // í˜„ì¬ ì½˜ì†” ì •ë³´ ê°€ì ¸ì˜¤ê¸°
     if (!GetConsoleScreenBufferInfo(hConsole, &csbi)) {
         printf("Error: Unable to get console screen buffer info.\n");
         return;
     }
 
-    // ÀüÃ¼ ÄÜ¼Ö Å©±â °è»ê (¿­ * Çà)
+    // ì „ì²´ ì½˜ì†” í¬ê¸° ê³„ì‚° (ì—´ * í–‰)
     DWORD console_size = csbi.dwSize.X * csbi.dwSize.Y;
 
-    // ¹è°æ»ö ¼³Á¤ (foreground: °ËÁ¤, background: ÆÄ¶û)
+    // ë°°ê²½ìƒ‰ ì„¤ì • (foreground: ê²€ì •, background: íŒŒë‘)
     WORD attributes = (background_color << 4) | (csbi.wAttributes & 0x0F);
     SetConsoleTextAttribute(hConsole, attributes);
 
-    // ÄÜ¼Ö È­¸éÀ» ÁöÁ¤µÈ »öÀ¸·Î Ã¤¿ì±â
+    // ì½˜ì†” í™”ë©´ì„ ì§€ì •ëœ ìƒ‰ìœ¼ë¡œ ì±„ìš°ê¸°
     FillConsoleOutputAttribute(hConsole, attributes, console_size, coord, &count);
 
-    // ÄÜ¼Ö È­¸éÀ» °ø¹é ¹®ÀÚ·Î Ã¤¿ì±â
+    // ì½˜ì†” í™”ë©´ì„ ê³µë°± ë¬¸ìë¡œ ì±„ìš°ê¸°
     FillConsoleOutputCharacter(hConsole, ' ', console_size, coord, &count);
 
-    // Ä¿¼­¸¦ ´Ù½Ã ÁÂ»ó´ÜÀ¸·Î ÀÌµ¿
+    // ì»¤ì„œë¥¼ ë‹¤ì‹œ ì¢Œìƒë‹¨ìœ¼ë¡œ ì´ë™
     SetConsoleCursorPosition(hConsole, coord);
 }
 
@@ -141,29 +141,44 @@ void console_clear_region(uint32_t x, uint32_t y, uint32_t width, uint32_t heigh
 
     for (int cols = 0; cols < height; cols++) {
         // Implicit casts should not lower precision
-        coord.X = (SHORT)x; // coord.X, Y´Â SHORTÀÇ ¹üÀ§(-32,768 ~ 32,767) ³»¿¡ ÀÖ¾î¾ß ÇÑ´Ù.
+        coord.X = (SHORT)x; // coord.X, YëŠ” SHORTì˜ ë²”ìœ„(-32,768 ~ 32,767) ë‚´ì— ìˆì–´ì•¼ í•œë‹¤.
         coord.Y = (SHORT)(y + cols);
         FillConsoleOutputCharacter(hConsole, ' ', width, coord, &charsWritten);
     }
 }
 
 void console_clear(const windows_console_t* console) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // ÄÜ¼Ö ÇÚµé °¡Á®¿À±â
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // ì½˜ì†” í•¸ë“¤ ê°€ì ¸ì˜¤ê¸°
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     DWORD console_size = 0;
     DWORD chars_written = 0;
-    COORD top_left = { 0, 0 }; // È­¸é ÁÂ»ó´Ü ÁÂÇ¥
+    COORD top_left = { 0, 0 }; // í™”ë©´ ì¢Œìƒë‹¨ ì¢Œí‘œ
 
-    if (!GetConsoleScreenBufferInfo(hConsole, &csbi)) { // ÇöÀç ÄÜ¼Ö Á¤º¸ °¡Á®¿À±â
+    if (!GetConsoleScreenBufferInfo(hConsole, &csbi)) { // í˜„ì¬ ì½˜ì†” ì •ë³´ ê°€ì ¸ì˜¤ê¸°
         printf("Error: Unable to get console screen buffer info.\n");
         return;
     }
-    console_size = csbi.dwSize.X * csbi.dwSize.Y; // ÄÜ¼ÖÀÇ ÀüÃ¼ Å©±â °è»ê (¿­ * Çà)
-    FillConsoleOutputCharacter(hConsole, ' ', console_size, top_left, &chars_written); // ÄÜ¼Ö È­¸éÀ» °ø¹é ¹®ÀÚ·Î Ã¤¿ì±â
-    FillConsoleOutputAttribute(hConsole, csbi.wAttributes, console_size, top_left, &chars_written); // ÄÜ¼Ö È­¸éÀÇ ¸ğµç ¼Ó¼ºÀ» ±âº»°ªÀ¸·Î Ã¤¿ì±â
-    SetConsoleCursorPosition(hConsole, top_left); // Ä¿¼­¸¦ È­¸éÀÇ ÁÂ»ó´ÜÀ¸·Î ÀÌµ¿
+    console_size = csbi.dwSize.X * csbi.dwSize.Y; // ì½˜ì†”ì˜ ì „ì²´ í¬ê¸° ê³„ì‚° (ì—´ * í–‰)
+    FillConsoleOutputCharacter(hConsole, ' ', console_size, top_left, &chars_written); // ì½˜ì†” í™”ë©´ì„ ê³µë°± ë¬¸ìë¡œ ì±„ìš°ê¸°
+    FillConsoleOutputAttribute(hConsole, csbi.wAttributes, console_size, top_left, &chars_written); // ì½˜ì†” í™”ë©´ì˜ ëª¨ë“  ì†ì„±ì„ ê¸°ë³¸ê°’ìœ¼ë¡œ ì±„ìš°ê¸°
+    SetConsoleCursorPosition(hConsole, top_left); // ì»¤ì„œë¥¼ í™”ë©´ì˜ ì¢Œìƒë‹¨ìœ¼ë¡œ ì´ë™
 }
 
 void setcolor(unsigned short text, unsigned short back) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text | (back << 4));
+
+//cursor
+void set_cursor_visible(windows_console_t* console, bool hide) {
+    console->cursor_info.is_hide = hide;
+
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // ì½˜ì†” í•¸ë“¤ ê°€ì ¸ì˜¤ê¸°
+    CONSOLE_CURSOR_INFO cursorInfo;
+
+    if (GetConsoleCursorInfo(hConsole, &cursorInfo)) {
+        cursorInfo.bVisible = console->cursor_info.is_hide; // TRUE: í‘œì‹œ, FALSE: ìˆ¨ê¹€
+        SetConsoleCursorInfo(hConsole, &cursorInfo);
+    }
+    else {
+        printf("Error: Unable to set console cursor visibility.\n");
+    }
 }

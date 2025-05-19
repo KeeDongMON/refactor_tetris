@@ -24,10 +24,8 @@
     <ClCompile Include="key_driver.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="draw.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="console.c">
+    <ClCompile Include="board.c">
+
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,13 +42,7 @@
     <ClInclude Include="key_driver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="sound.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="color.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="console.h">
+    <ClInclude Include="board.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
