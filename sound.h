@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-#pragma comment(lib, "winmm.lib") // winmm ¶óÀÌºê·¯¸® ¸µÅ©
+#pragma comment(lib, "winmm.lib") // winmm ï¿½ï¿½ï¿½Ìºê·¯ï¿½ï¿½ ï¿½ï¿½Å©
 
 void sound_init(const char file_name);
 
@@ -15,3 +15,5 @@ void sound_stop(void);
 
 
 #endif
+=======
+#pragma once

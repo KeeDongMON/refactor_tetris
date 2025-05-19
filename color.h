@@ -20,7 +20,6 @@ typedef enum _color_t {
     LIGHT_WHITE,
 } color_t;
 
-
 char* get_color_string(color_t color);
 
 #endif
