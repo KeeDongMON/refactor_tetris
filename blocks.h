@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include "color.h"
 //#define MAX_BLOCK_COUNT 7
 
 #define BLOCK_WIDTH 4
@@ -64,5 +65,8 @@ void block_init(block_t* block, block_shapes_t shape);
 void block_display_info(const block_t* blk, bool option);
 void block_rotate(block_t* block); // 주의! 회전만 시키고 그리지는 않는다.
 void block_set_xy(block_t* block, uint32_t x, uint32_t y); // 역시, x,y값만 바뀌고 그리지는 않는다.
+
+//block
+void block_draw(block_t* block);
 
 #endif

@@ -24,6 +24,10 @@
     <ClCompile Include="key_driver.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="board.c">
+
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blocks.h">
@@ -36,6 +40,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="key_driver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="board.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
