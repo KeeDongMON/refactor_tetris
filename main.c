@@ -14,6 +14,7 @@
 #define RESIZE_COLS (DEFAULT_COLS-30) //=90
 #define RESIZE_ROWS 30
 
+//github desktop test
 //추가적으로 밝은 색상은 해당 값에 8을 더한 값으로 표현됩니다(예: 밝은 파랑은 9).
 typedef enum _color_t {
     BLACK, //0
